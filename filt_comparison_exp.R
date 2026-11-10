@@ -40,8 +40,7 @@ ggplot(aggdat_long %>%
   scale_y_log10() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 9))
 
-# Look at detection, sequencing yield, and reproducibility
-#1. Species richness
+# Species richness (Fish)
 rich <- aggdat_long %>%
   filter(Group == 'Fish') %>%
   group_by(UID) %>%
@@ -51,7 +50,8 @@ rich <- aggdat_long %>%
 
 ggplot(rich, aes(x = filt_type_size, y = richness, col = filt_type_size)) +
   geom_point(size = 3) + 
-  theme_minimal()
+  theme_minimal() +
+  geom_text()
 
 ggplot(aggdat_long %>% filter(Group == 'Fish'), aes(x = ScientificName, y = UID, fill = reads > 0)) +
   geom_tile() +
@@ -74,7 +74,7 @@ samps_rel_long <- samps_rel_long %>%
 
 ggplot(samps_rel_long, aes(x = UID, y = rel_reads, fill = Group)) +
   geom_col() +
-  facet_wrap(~filt_type, ncol = 1) +
+  facet_wrap(~ filt_type, ncol = 1) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 9)) 
   
